@@ -11,7 +11,7 @@
 <img src ="scr\HenryLogo.jpg">
 <p>
 
- <h1 align='center'>Primer Proyecto Individual (Machine learning Operations)</h1>
+ <h1 align='center'>Primer Proyecto Individual (<b>Machine learning Operations</b>)</h1>
 
 
  <h2 style="text-align: center; border: none;">
@@ -54,19 +54,32 @@ Para la posibilidad de la descarga los archivos originales, que debido a su tama
 [Raw Data](https://drive.google.com/drive/folders/1HqBG2-sUkz_R3h1dZU5F2uAzpRn7BSpj)
 
 
-
-
 <br><br>
 
 
-_**ETL**_:
-Para conocer más sobre el desarrollo del proceso ETL, existe el siguiente enlace
-[Notebook ETL](https://github.com/NPontisLedda/PI01_MLOPs_Henry/blob/main/PI_MLOPs_ETL_EDA.ipynb)
+# Proceso de _ETL_ para los datos de insumo
+
+Primeramente, se realizó un proceso de extracción, transformación y carga (_ETL_) de los tres archivos en formato ***JSON***, para su posterior trabajo en los procesos siguientes del proyecto. Los detalles del proceso aparecen en el notebook de IPython [Notebook ETL](https://github.com/MMoscoteAlarcon/Proyecto-Individual_01/blob/master/01_ETL.ipynb), el cual contiene el código para la _limpieza_ de los tres archivos utilizados en el presente proyecto. Cabe mencionar que una primera obsevación del conjunto de datos mostró que los archivos presentaban columnas anidadas, es decir, que tienen un diccionario o una lista como valores en cada fila; además para realizar  consultas de valor para la _API_ debían eliminarse columnas que no resultaban de utilidad, eliminación de valores nulos, cambio en el formato de ciertas variables
 
 
 
-_**Desanidado**_:
-1. Algunas columnas están anidadas, es decir, tienen un diccionario o una lista como valores en cada fila, las desanidamos para poder realizar algunas de las consultas API.
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 _**Eliminar columnas no utilizadas**_:
 
