@@ -11,7 +11,7 @@
 <img src ="scr\HenryLogo.jpg">
 <p>
 
- <h1 align='center'>Primer Proyecto Individual (_Machine learning Operations_)</h1>
+ <h1 align='center'>Primer Proyecto Individual (Machine learning Operations)</h1>
 
 
  <h2 style="text-align: center; border: none;">
