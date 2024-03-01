@@ -60,7 +60,7 @@ _Drive_ del autor del presente proyecto se encuentran disponibles.
 ## 1. Proceso de _ETL_ para los datos de insumo 
 
 Primeramente, se realizó un proceso de extracción, transformación y carga (_ETL_) de los tres archivos en formato ***JSON***, para su posterior trabajo en los procesos siguientes del proyecto. Los detalles del proceso aparecen en el notebook de IPython [01_ETL](https://github.com/MMoscoteAlarcon/Proyecto-Individual_01/blob/master/01_ETL.ipynb), el cual contiene el código para la _limpieza_ de los tres archivos utilizados en el presente proyecto.
-Problemas relacionados con la capacidad de cómputo y disponibilidad de los archivos de insumo originales, sugieren que se revise el Notebook de Ipython [01 ETL](https://drive.google.com/file/d/1pcNf187xG1L-ETgNbnZ6rcfQOEcTLe3Y/view?usp=drive_link), el cual se encuentra en ***Google Drive,** y en el cual se presenta de forma detallada todo el proceso de _ETL_ para los tres conjuntos de datos.
+Problemas relacionados con la capacidad de cómputo y disponibilidad de los archivos de insumo originales, sugieren que se revise el Notebook de Ipython [01 ETL](https://drive.google.com/file/d/1pcNf187xG1L-ETgNbnZ6rcfQOEcTLe3Y/view?usp=drive_link), el cual se encuentra en **Google Drive,** y en el cual se presenta de forma detallada todo el proceso de _ETL_ para los tres conjuntos de datos.
 
  Cabe mencionar que una primera obsevación del conjunto de datos mostró que los archivos presentaban columnas anidadas, es decir, que tienen un diccionario o una lista como valores en cada fila; además para realizar  consultas de valor para la _API_ debían eliminarse columnas que no resultaban de utilidad, eliminación de valores nulos, cambio en el formato de ciertas variables
 
