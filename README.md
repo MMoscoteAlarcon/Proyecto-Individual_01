@@ -49,17 +49,20 @@ Para el presente proyecto se tienen como insumos los siguientes tres archivos en
 * **output_steam_games.** Contiene información relacionada de los mismos juegos ofrecidos por la plataforma _Steam_, tales como el título, el desarrollador, precio, características técnicas, etiquetas, entre otros.
 
 
-Para la posibilidad de la descarga los archivos originales, que debido a su tamaño no están incluidos en el presente proyecto, se encuentran disponibles en el enlace siguiente:
-
-[Raw Data](https://drive.google.com/drive/folders/1HqBG2-sUkz_R3h1dZU5F2uAzpRn7BSpj)
+Debido a su tamaño considerable, estos archivos no están incluidos en **Github**, pero en la carpeta 
+[Raw Data](https://drive.google.com/drive/folders/14hpIxPrYuxjBHCg91e-9WJZfnMz0J04e?usp=drive_link), ubicada en el
+_Drive_ del autor del presente proyecto se encuentran disponibles.
 
 
 <br><br>
 
 
-# Proceso de _ETL_ para los datos de insumo
+## 1. Proceso de _ETL_ para los datos de insumo 
 
-Primeramente, se realizó un proceso de extracción, transformación y carga (_ETL_) de los tres archivos en formato ***JSON***, para su posterior trabajo en los procesos siguientes del proyecto. Los detalles del proceso aparecen en el notebook de IPython [Notebook ETL](https://github.com/MMoscoteAlarcon/Proyecto-Individual_01/blob/master/01_ETL.ipynb), el cual contiene el código para la _limpieza_ de los tres archivos utilizados en el presente proyecto. Cabe mencionar que una primera obsevación del conjunto de datos mostró que los archivos presentaban columnas anidadas, es decir, que tienen un diccionario o una lista como valores en cada fila; además para realizar  consultas de valor para la _API_ debían eliminarse columnas que no resultaban de utilidad, eliminación de valores nulos, cambio en el formato de ciertas variables
+Primeramente, se realizó un proceso de extracción, transformación y carga (_ETL_) de los tres archivos en formato ***JSON***, para su posterior trabajo en los procesos siguientes del proyecto. Los detalles del proceso aparecen en el notebook de IPython [01_ETL](https://github.com/MMoscoteAlarcon/Proyecto-Individual_01/blob/master/01_ETL.ipynb), el cual contiene el código para la _limpieza_ de los tres archivos utilizados en el presente proyecto.
+Problemas relacionados con la capacidad de cómputo y disponibilidad de los archivos de insumo originales, sugieren que se revise el Notebook de Ipython [01 ETL](https://drive.google.com/file/d/1pcNf187xG1L-ETgNbnZ6rcfQOEcTLe3Y/view?usp=drive_link), el cual se encuentra en ***Google Drive,** y en el cual se presenta de forma detallada todo el proceso de _ETL_ para los tres conjuntos de datos.
+
+ Cabe mencionar que una primera obsevación del conjunto de datos mostró que los archivos presentaban columnas anidadas, es decir, que tienen un diccionario o una lista como valores en cada fila; además para realizar  consultas de valor para la _API_ debían eliminarse columnas que no resultaban de utilidad, eliminación de valores nulos, cambio en el formato de ciertas variables
 
 
 
@@ -81,89 +84,3 @@ Primeramente, se realizó un proceso de extracción, transformación y carga (_E
 
 
 
-_**Eliminar columnas no utilizadas**_:
-
-2. Se eliminan las columnan que no se utilizarán:
-   - De output_steam_games: publisher, url, tags, price, specs, early_access.
-   - De australian_user_reviews: user_url, funny, last_edited, helpful.
-   - De australian_users_items: user_url, playtime_2weeks, steam_id, items_count.
-
-_**Control de valores nulos**_:
-
-3. Se eliminan valores nulos:
-   - De output_steam_games: genres, release_date.
-   - De australian_user_reviews: item_id.
-   - De australian_user_items: user_id
-
-_**Cambio del tipo de datos**_:
-
-4. Las fechas se cambian a datetime para luego extraer el año:
-   - De australian_user_reviews: la columna posted .
-   - De output_steam_games: la columna release_date.
-
-_**Se quitan datos sin valor**_:
-
-5. Los datos que no tienen ningún valor:
-   - De australian_user_items: la columna playtime_forever.
-
-_**Fusión de conjuntos de datos**_:
-
-6. Combiné los datasets para las funciones 1 y 2 en un archivo .csv [Archivo para funciones 1 y 2](https://github.com/NPontisLedda/PI01_MLOPs_Henry/blob/main/df_f1_2.csv), y para las funciones 3, 4 y 5 en otro archivo .csv [Archivo para funciones 3,4 y 5](https://github.com/NPontisLedda/PI01_MLOPs_Henry/blob/main/df_f3_4_5.csv).
-
-_**Análisis de sentimiento**_:
-
-7. En el conjunto de datos australian_user_reviews, hay reseñas de juegos realizadas por diferentes usuarios. Creación de la columna 'sentiment_analysis' aplicando análisis de sentimiento de PNL con la siguiente escala: toma el valor '0' si es negativo, '1' si es neutral y '2' si es positivo. Esta nueva columna reemplaza la columna australian_user_reviews.review para facilitar el trabajo de los modelos de aprendizaje automático y el análisis de datos. Si este análisis no es posible por falta de una reseña escrita, toma el valor de 1.
-
-
-# _Funciones_
-- _**Para obtener más información sobre el desarrollo de las diferentes funciones y una explicación más detallada de cada una, haga clic en el siguiente enlace**_
-[Notebook de funciones](https://github.com/NPontisLedda/PI01_MLOPs_Henry/blob/main/FastAPI/fastapi-env/main.py)
-
-Desarrollo API: Se propone disponibilizar los datos de la empresa usando el framework FastAPI . Las consultas que proponemos son las siguientes:
-
-Cada aplicación tiene un decorador (@app.get('/')) con el nombre de la aplicación para poder reconocer su función.
-
-Las consultas son las siguientes:
-
-1. **PlayTimeGenre(género:str)**:
-Debe devolver año con más horas jugadas para dicho género.
-Ejemplo de retorno: {"Año de lanzamiento con más horas jugadas para Género X" : 2013}
-
-2. **UserForGenre(género:str)**:
-Debe devolver el usuario que acumula más horas jugadas para el género dado y una lista de la acumulación de horas jugadas por año.
-Ejemplo de retorno: {"Usuario con más horas jugadas para Género X" : us213ndjss09sdf, "Horas jugadas":[{Año: 2013, Horas: 203}, {Año: 2012, Horas: 100}, {Año: 2011, Horas : 23}]}
-
-3. **UsersRecommend(año:int)**:
-Devuelve el top 3 de juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = True y comentarios positivos/neutrales)
-Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
-
-4. **def UsersWorstDeveloper(año:int)**:
-Devuelve el top 3 de desarrolladores con juegos MENOS recomendados por usuarios para el año dado. (reviews.recommend = False y comentarios negativos)
-Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
-
-5. **sentiment_analysis(empresa desarrolladora:str)**:
-Según la empresa desarrolladora, se devuelve un diccionario con el nombre de la desarrolladora como llave y una lista con la cantidad total de registros de reseñas de usuarios que se encuentren categorizados con un análisis de sentimiento como valor.
-Ejemplo de retorno: {'Valve' : [Negative = 182, Neutral = 120, Positive = 278]}
-
-# _**EDA (Análisis exploratorio de datos)**_
-Los conjuntos de datos tenían algunos aspectos que corregir relacionados con variables numéricas. La columna playtime_forever tenía algunos valores atípicos con cantidades irreales de horas jugadas para algunos usuarios; las cantidades se corrigieron.
-
-# _**Aprendizaje automático(Machine Learning)**_
-
-El modelo establece una relación artículo-artículo. Esto significa que dado un item_id, en función de qué tan similar sea al resto, se recomendarán artículos similares. Aquí, la entrada es un juego y la salida es una lista de juegos recomendados.
-
-El método de aprendizaje automático utilizado es K-Neighbours. No es el mejor método para abordar los conjuntos de datos y parte de este proyecto se centra en eso. Debido a que el proyecto debe implementarse en Render, la memoria RAM disponible es limitada y lo importante aquí era comprender la diferencia entre los diferentes modelos de Machine Learning. Anteriormente, probé árboles de decisión y procesamiento de lenguaje natural utilizando similitud de coseno.
-
-El sistema de recomendación item-item se planteó originalmente así:
-
-6. **get_recommendations(item_id)**: 
-Ingresando el id de producto(item_id), deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.
-
-
-
-# _**Implementación de API**_
-La implementación de nuestra FastAPI se realiza utilizando Render un entorno virtual.
-
-Haga clic para acceder a mi aplicación FastAPI: [API Deployment](https://proyecto1-gkkk.onrender.com/docs#/)
-
-Para consumir la API, utilice los 6 endpoints diferentes para obtener información y realizar consultas sobre estadísticas de juegos.
